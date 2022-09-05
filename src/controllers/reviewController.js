@@ -36,7 +36,7 @@ const createReviews = async (req, res) => {
         if (typeof data.rating != "number")
             return res.status(400).send({ status: false, message: "Please enter a number" });
 
-        if (!(/^[1-5]$/.test(data.rating)))
+        if (!(data.rating <= 5 && data.rating >= 1))
             return res.status(400).send({ status: false, message: "It should be in the range of 1 - 5 only" });
 
         data.reviewedAt = Date.now();
@@ -60,7 +60,6 @@ const createReviews = async (req, res) => {
 
         return res.status(201).send({ status: true, message: 'Success', data: finalData });
 
-
     } catch (error) {
         res.status(500).send({ status: false, message: error.message })
     }
@@ -74,10 +73,10 @@ const updateReviews = async function (req, res) {
         const bookId = req.params.bookId;
         const reviewId = req.params.reviewId;
 
-        if (!mongoose.isValidObjectId(bookId))
+        if (!isValidObjectId(bookId))
             return res.status(400).send({ status: false, message: "BookId is not in correct format" });
 
-        if (!mongoose.isValidObjectId(reviewId))
+        if (!isValidObjectId(reviewId))
             return res.status(400).send({ status: false, message: "ReviewId is not in correct format" });
 
         let bookIdCheck = await BookModel.findOne({ _id: bookId, isDeleted: false });
@@ -113,7 +112,7 @@ const updateReviews = async function (req, res) {
         if (typeof data.rating != "number")
             return res.status(400).send({ status: false, message: "Please enter a number only" });
 
-        if (!(/^[1-5]$/.test(data.rating)))
+        if (!(data.rating <= 5 && data.rating >= 1))
             return res.status(400).send({ status: false, message: "It should be in the range of 1 - 5 only " });
 
         let update = await ReviewModel.findOneAndUpdate({ _id: reviewId }, data, { new: true });

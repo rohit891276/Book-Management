@@ -19,7 +19,7 @@ let authentication = function (req, res, next) {
 
         let decodedToken = jwt.verify(token, "Room-60-Radon");
         if (!decodedToken)
-            return res.status(401).send({ status: false, message: "Token is invalid" })
+            return res.status(401).send({ status: false, message: "Token is invalid" });
         req.bookIdNew = decodedToken.userId
 
         next();

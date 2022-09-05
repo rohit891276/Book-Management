@@ -122,8 +122,6 @@ const loginUser = async function (req, res) {
                 userId: User._id.toString(),
                 iat: new Date().getTime(),
                 exp: Math.floor(Date.now() / 1000) + (60 * 60)
-
-
             },
             "Room-60-Radon"
         );

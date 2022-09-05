@@ -1,4 +1,4 @@
-
+const mongoose = require('mongoose');
 
 const isValidObjectId = (objectId) => {
     if (mongoose.Types.ObjectId.isValid(objectId)) return true;
@@ -24,7 +24,7 @@ const nameRegex = (value) => {
 }
 
 const titleRegex = (value) => {
-    let nameRegex = /[^A-Za-z0-9]+/;                
+    let nameRegex = /[^A-Za-z0-9]+/;
     if (nameRegex.test(value))
         return true;
 }
@@ -69,7 +69,6 @@ const dateFormate = (value) => {
     if (dateRegex.test(value))
         return true;
 }
-const mongoose = require('mongoose');
 
 module.exports = { isValidObjectId, objectValue, forBody, nameRegex, titleRegex, addressValid, mailRegex, mobileRegex, passwordRegex, isbnIsValid, pinValid, dateFormate }
 

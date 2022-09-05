@@ -12,6 +12,8 @@ const createBooks = async (req, res) => {
         let files = req.files;
         const filedAllowed = ["title", "excerpt", "userId", "ISBN", "category", "subcategory", "releasedAt"];
 
+        const { title, excerpt, userId, ISBN, category, subcategory, reviews, isDeleted, releasedAt } = req.body;
+
         if (!forBody(req.body))
             return res.status(400).send({ status: false, message: "Body should not remain empty" });
 
@@ -25,8 +27,6 @@ const createBooks = async (req, res) => {
             var url = await uploadFile(files[0]);
             req.body.bookCover = url;
         }
-
-        const { title, excerpt, userId, ISBN, category, subcategory, reviews, isDeleted, releasedAt } = req.body;
 
         const check_title = await BookModel.findOne({ title: title });
 
